@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuxuanhe.wemedia.mapper.WmMaterialMapper">
+    <select id="findById" resultType="WmMaterial">
+        select * from wm_material
+        <where>
+            user_id = #{wmUser.id}
+            <if test="dto.isCollection!=null and dto.isCollection==1">
+                and is_collection = #{dto.isCollection}
+            </if>
+        </where>
+        order by created_time desc
+    </select>
+    
+    <select id="selectByUrl" resultType="WmMaterial">
+        select * from wm_material
+        where url in
+        <foreach collection="images" item="url" separator="," open="(" close=")">
+            #{url}
+        </foreach>
+    </select>
+</mapper>

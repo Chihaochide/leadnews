@@ -1,0 +1,22 @@
+server:
+  port: 9003
+spring:
+  application:
+    name: leadnews-wemedia
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.177.119:8848
+      config:
+        server-addr: 192.168.177.119:8848
+        file-extension: yml
+  servlet:
+    multipart:
+      max-file-size: 8MB # 修改文件大小限制
+  redis:
+    host: 192.168.177.119
+    port: 6379
+    database: 0
+pagehelper:
+  helperDialect: mysql
+  reasonable: true

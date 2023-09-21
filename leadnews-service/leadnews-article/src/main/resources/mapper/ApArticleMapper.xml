@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuxuanhe.article.mapper.ApArticleMapper">
+    <select id="loadApArticle" resultType="ApArticle">
+        select
+            aa.*
+        from
+            ap_article aa
+            inner join ap_article_config aac
+        on
+            aac.article_id = aa.id
+        <where>
+            <if test="dto.tag!='__all__'">
+                aa.channel_id = #{dto.tag}
+            </if>
+            <if test="type==1">
+                and aa.publish_time &lt; #{dto.minBehotTime}
+            </if>
+            <if test="type==2">
+                and aa.publish_time &gt; #{dto.maxBehotTime}
+            </if>
+            and aac.is_delete = 0
+            and aac.is_down = 0
+        </where>
+        order by aa.publish_time desc
+
+    </select>
+    <update id="upDate">
+        update ap_article
+        <set>
+            <if test="apArticle.title!=null">
+                title=#{apArticle.title},
+            </if>
+            <if test="apArticle.authorId!=null">
+                author_id=#{apArticle.authorId},
+            </if>
+            <if test="apArticle.authorName!=null">
+                author_name=#{apArticle.authorName},
+            </if>
+            <if test="apArticle.channelId!=null">
+                channel_id=#{apArticle.channelId},
+            </if>
+            <if test="apArticle.channelName!=null">
+                channel_name=#{apArticle.channelName},
+            </if>
+            <if test="apArticle.layout!=null">
+                layout=#{apArticle.layout},
+            </if>
+            <if test="apArticle.flag!=null">
+                flag=#{apArticle.flag},
+            </if>
+            <if test="apArticle.images!=null">
+                images=#{apArticle.images},
+            </if>
+            <if test="apArticle.labels!=null">
+                labels=#{apArticle.labels},
+            </if>
+            <if test="apArticle.likes!=null">
+                likes=#{apArticle.likes},
+            </if>
+            <if test="apArticle.collection!=null">
+                collection=#{apArticle.collection},
+            </if>
+            <if test="apArticle.comment!=null">
+                comment=#{apArticle.comment},
+            </if>
+            <if test="apArticle.views!=null">
+                views=#{apArticle.views},
+            </if>
+            <if test="apArticle.provinceId!=null">
+                province_id=#{apArticle.provinceId},
+            </if>
+            <if test="apArticle.cityId!=null">
+                city_id=#{apArticle.cityId},
+            </if>
+            <if test="apArticle.countyId!=null">
+                county_id=#{apArticle.countyId},
+            </if>
+            <if test="apArticle.createdTime!=null">
+                created_time=#{apArticle.createdTime},
+            </if>
+            <if test="apArticle.publishTime!=null">
+                publish_time=#{apArticle.publishTime},
+            </if>
+            <if test="apArticle.syncStatus!=null">
+                sync_status=#{apArticle.syncStatus},
+            </if>
+            <if test="apArticle.origin!=null">
+                origin=#{apArticle.origin},
+            </if>
+            <if test="apArticle.staticUrl!=null">
+                static_url=#{apArticle.staticUrl},
+            </if>
+        </set>
+        where id = #{apArticle.id}
+    </update>
+</mapper>
